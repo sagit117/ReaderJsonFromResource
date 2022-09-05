@@ -3,6 +3,8 @@ package ru.axel.reader;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.*;
 
 /**
@@ -18,6 +20,7 @@ public class ReaderJsonFromResource {
      * @throws URISyntaxException если путь до файла задан неверно
      * @throws IOException если произошла ошибка чтения файла
      */
+    @NotNull
     public static JSONObject read(String fileNameFromResource) throws URISyntaxException, IOException {
         File file = getFileFromResource(fileNameFromResource);
         StringBuilder stringJson = new StringBuilder((int)file.length());
@@ -32,6 +35,7 @@ public class ReaderJsonFromResource {
      * @throws IOException если произошла ошибка чтения файла
      * @throws URISyntaxException если путь до файла задан неверно
      */
+    @NotNull
     private static File getFileFromResource(String fileName) throws IOException, URISyntaxException {
         URL url = ReaderJsonFromResource.class.getClassLoader().getResource(fileName);
         File file;
