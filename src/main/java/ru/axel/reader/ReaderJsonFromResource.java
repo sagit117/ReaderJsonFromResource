@@ -10,9 +10,9 @@ import org.json.*;
 /**
  * Класс для чтения json файлов из ресурсов
  */
-public class ReaderJsonFromResource {
+public final class ReaderJsonFromResource {
     /** Пустой конструктор */
-    public ReaderJsonFromResource() { }
+//    public ReaderJsonFromResource() { }
     /**
      * Метод читает json файл из ресурсов и трансформирует его в JSONObject
      * @param fileNameFromResource имя файла из ресурсов
@@ -22,8 +22,8 @@ public class ReaderJsonFromResource {
      */
     @NotNull
     public static JSONObject read(String fileNameFromResource) throws URISyntaxException, IOException {
-        File file = getFileFromResource(fileNameFromResource);
-        StringBuilder stringJson = new StringBuilder((int)file.length());
+        final File file = getFileFromResource(fileNameFromResource);
+        final StringBuilder stringJson = new StringBuilder((int)file.length());
 
         return new JSONObject(writeFileToStringBuilder(file, stringJson).toString());
     }
@@ -37,15 +37,13 @@ public class ReaderJsonFromResource {
      */
     @NotNull
     private static File getFileFromResource(String fileName) throws IOException, URISyntaxException {
-        URL url = ReaderJsonFromResource.class.getClassLoader().getResource(fileName);
-        File file;
+        final URL url = ReaderJsonFromResource.class.getClassLoader().getResource(fileName);
+
         if (url != null) {
-            file = new File(url.toURI());
+            return new File(url.toURI());
         } else {
             throw new IOException("No file exists!");
         }
-
-        return file;
     }
 
     /**
@@ -56,8 +54,8 @@ public class ReaderJsonFromResource {
      * @throws IOException если произошла ошибка чтения файла
      */
     private static StringBuilder writeFileToStringBuilder(
-            File file,
-            StringBuilder stringBuilder
+        File file,
+        StringBuilder stringBuilder
     ) throws IOException {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String s;
